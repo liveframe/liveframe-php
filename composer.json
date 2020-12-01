@@ -1,0 +1,23 @@
+{
+    "name": "liveframe/liveframe-php",
+    "description": "A PHP wrapper for the LiveFrame API",
+    "keywords": ["liveframe", "php", "sdk", "api"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "William Rodriguez",
+            "email": "me@williamrodriguez.com"
+        }
+    ],
+    "homepage": "https://liveframe.io",
+    "require": {
+        "php": "^7.2.5 || ^8.0",
+        "guzzlehttp/guzzle": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Liveframe\\Liveframe\\": "src/"
+        }
+    }
+}
