@@ -23,7 +23,7 @@ class Liveframe
 
         $this->client = new \GuzzleHttp\Client([
             'verify' => false,
-            'base_uri' => 'https://liveframe.io.test/api/v1/',
+            'base_uri' => 'https://staging.liveframe.io/api/v1/',
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token
             ]

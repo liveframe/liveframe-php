@@ -12,7 +12,7 @@ class Sessions extends Liveframe
         $response = $this->client->post('session/list', [
             'json' => ['assessment_id' => (string) $assessmentId]
         ]);
-        return $response->getBody();
+        return $response->getBody()->getContents();
     }
 
     public function get($userName, $assessmentId = '')
@@ -29,7 +29,7 @@ class Sessions extends Liveframe
         $response = $this->client->post('session/get', [
             'json' => $options
         ]);
-        return $response->getBody();
+        return $response->getBody()->getContents();
     }
 
     public function create($userName, $assessmentId)
@@ -44,7 +44,7 @@ class Sessions extends Liveframe
                 'assessment_id' => (string) $assessmentId
             ]
         ]);
-        return $response->getBody();
+        return $response->getBody()->getContents();
     }
 
     public function delete($userName, $assessmentId)
@@ -59,6 +59,6 @@ class Sessions extends Liveframe
                 'assessment_id' => (string) $assessmentId
             ]
         ]);
-        return $response->getBody();
+        return $response->getBody()->getContents();
     }
 }

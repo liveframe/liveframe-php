@@ -10,7 +10,7 @@ class Assessments extends Liveframe
     public function list()
     {
         $response = $this->client->post('assessment/list');
-        return $response->getBody();
+        return $response->getBody()->getContents();
     }
 
     public function get($id)
@@ -22,7 +22,7 @@ class Assessments extends Liveframe
         $response = $this->client->post('assessment/get', [
             'json' => ['assessment_id' => $id]
         ]);
-        return $response->getBody();
+        return $response->getBody()->getContents();
     }
 
     public function create($name, $options = [], $active = 1)
@@ -38,7 +38,7 @@ class Assessments extends Liveframe
                 'active' => $active
             ]
         ]);
-        return $response->getBody();
+        return $response->getBody()->getContents();
     }
 
     public function update($id, $args)
@@ -67,7 +67,7 @@ class Assessments extends Liveframe
         $response = $this->client->post('assessment/update', [
             'json' => $options
         ]);
-        return $response->getBody();
+        return $response->getBody()->getContents();
     }
 
     public function delete($id)
@@ -79,6 +79,6 @@ class Assessments extends Liveframe
         $response = $this->client->post('assessment/delete', [
             'json' => ['assessment_id' => $id]
         ]);
-        return $response->getBody();
+        return $response->getBody()->getContents();
     }
 }
