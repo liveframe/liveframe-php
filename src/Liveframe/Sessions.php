@@ -7,23 +7,26 @@ use Liveframe\Liveframe;
 
 class Sessions extends Liveframe
 {
-    public function list($assessmentId)
+    public function list(array $args = [])
     {
         $response = $this->client->post('session/list', [
-            'json' => ['assessment_id' => (string) $assessmentId]
+            'json' => ['assessment_id' => (string) $args['assessment_id']]
         ]);
         return $response->getBody()->getContents();
     }
 
-    public function get($userName, $assessmentId = '')
+    public function get(array $args = [])
     {
-        if (! $userName) {
+        if (! $args['username']) {
             throw new Exception('User name is required');
         }
 
-        $options = ['username' => (string) $userName];
-        if ($assessmentId) {
-            $options['assessment_id'] = (string) $assessmentId;
+        $options = ['username' => (string) $args['username']];
+        if ($args['assessment_id']) {
+            $options['assessment_id'] = (string) $args['assessment_id'];
+        }
+        if (array_key_exists('with_video', $args) && $args['with_video']) {
+            $options['with_video'] = (bool) $args['with_video'];
         }
 
         $response = $this->client->post('session/get', [
@@ -32,31 +35,31 @@ class Sessions extends Liveframe
         return $response->getBody()->getContents();
     }
 
-    public function create($userName, $assessmentId)
+    public function create(array $args = [])
     {
-        if (! $userName || ! $assessmentId) {
+        if (! $args['username'] || ! $args['assessment_id']) {
             throw new Exception('Assessment ID and user name required');
         }
 
         $response = $this->client->post('session/create', [
             'json' => [
-                'username' => (string) $userName,
-                'assessment_id' => (string) $assessmentId
+                'username' => (string) $args['username'],
+                'assessment_id' => (string) $args['assessment_id']
             ]
         ]);
         return $response->getBody()->getContents();
     }
 
-    public function delete($userName, $assessmentId)
+    public function delete(array $args = [])
     {
-        if (! $userName || ! $assessmentId) {
+        if (! $args['username'] || ! $args['assessment_id']) {
             throw new Exception('Assessment ID and user name required');
         }
 
         $response = $this->client->post('session/delete', [
             'json' => [
-                'username' => (string) $userName,
-                'assessment_id' => (string) $assessmentId
+                'username' => (string) $args['username'],
+                'assessment_id' => (string) $args['assessment_id']
             ]
         ]);
         return $response->getBody()->getContents();

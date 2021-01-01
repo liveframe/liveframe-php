@@ -13,35 +13,45 @@ class Assessments extends Liveframe
         return $response->getBody()->getContents();
     }
 
-    public function get($id)
+    public function get(array $args = [])
     {
-        if (! $id) {
+        if (! $args['id']) {
             throw new Exception('Assessment ID required');
         }
 
         $response = $this->client->post('assessment/get', [
-            'json' => ['assessment_id' => $id]
+            'json' => ['assessment_id' => $args['id']]
         ]);
         return $response->getBody()->getContents();
     }
 
-    public function create($name, $options = [], $active = 1)
+    public function create(array $args = [])
     {
-        if (! $name) {
-            throw new Exception('Assessment ID required');
+        if (! array_key_exists('name', $args)) {
+            throw new Exception('Assessment name required');
         }
+
+        if (! array_key_exists('options', $args)) {
+            throw new Exception('Assessment options required');
+        }
+
+        if (! array_key_exists('streams', $args['options'])) {
+            throw new Exception('Assessment recorded streams required');
+        }
+
+        $active = array_key_exists('active', $args) ? $args['active'] : 1;
 
         $response = $this->client->post('assessment/create', [
             'json' => [
-                'name' => $name,
-                'options' => $options,
+                'name' => (string) $args['name'],
+                'options' => (array) $args['options'],
                 'active' => $active
             ]
         ]);
         return $response->getBody()->getContents();
     }
 
-    public function update($id, $args)
+    public function update(string $id, array $args = [])
     {
         if (! $id) {
             throw new Exception('Assessment ID required');
@@ -52,7 +62,7 @@ class Assessments extends Liveframe
         }
 
         $options = [
-            'assessment_id' => (string) $id,
+            'assessment_id' => $id,
             'options' => $args['options']
         ];
 
@@ -70,14 +80,14 @@ class Assessments extends Liveframe
         return $response->getBody()->getContents();
     }
 
-    public function delete($id)
+    public function delete(array $args = [])
     {
-        if (! $id) {
+        if (! $args['id']) {
             throw new Exception('Assessment ID required');
         }
 
         $response = $this->client->post('assessment/delete', [
-            'json' => ['assessment_id' => $id]
+            'json' => ['assessment_id' => $args['id']]
         ]);
         return $response->getBody()->getContents();
     }

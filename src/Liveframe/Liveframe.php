@@ -12,18 +12,18 @@ class Liveframe
     protected $token;
     protected $client;
 
-    public function __construct(string $account = null, string $token = null)
+    public function __construct(array $args = [])
     {
-        if (! $account || ! $token) {
+        if (! $args['account'] || ! $args['token']) {
             throw new Exception('Account ID and Token are required');
         }
 
-        $this->account = $account;
-        $this->token = $token;
+        $this->account = $args['account'];
+        $this->token = $args['token'];
 
         $this->client = new \GuzzleHttp\Client([
             'verify' => false,
-            'base_uri' => 'https://staging.liveframe.io/api/v1/',
+            'base_uri' => 'https://liveframe.io.test/api/v1/',
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token
             ]
@@ -41,10 +41,10 @@ class Liveframe
     }
 
     public function assessments() {
-        return new Assessments($this->account, $this->token);
+        return new Assessments(['account' => $this->account, 'token' => $this->token]);
     }
 
     public function sessions() {
-        return new Sessions($this->account, $this->token);
+        return new Sessions(['account' => $this->account, 'token' => $this->token]);
     }
 }
