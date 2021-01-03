@@ -1,6 +1,6 @@
 # LiveFrame API - PHP SDK
 
-Foobar is a Python library for dealing with word pluralization.
+Easily consume the LiveFrame API with this SDK.
 
 ## Installation
 
