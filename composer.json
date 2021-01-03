@@ -1,5 +1,5 @@
 {
-    "name": "liveframe/liveframe-php",
+    "name": "liveframe/sdk",
     "description": "A PHP wrapper for the LiveFrame API",
     "keywords": ["liveframe", "php", "sdk", "api"],
     "type": "library",
@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Liveframe\\Liveframe\\": "src/"
+            "Liveframe\\": "src/Liveframe"
         }
     }
 }
